@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jroslar.listafacturasv01.ui.MainActivity">
+
+    <item android:id="@+id/filtrarFacturas"
+        android:icon="@drawable/baseline_filter_alt_24"
+        app:showAsAction="ifRoom"
+        android:title="filtrar" />
+</menu>

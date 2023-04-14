@@ -1,0 +1,60 @@
+package com.jroslar.listafacturasv01.data.adapter
+
+import android.os.Build
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
+import com.jroslar.listafacturasv01.R
+import com.jroslar.listafacturasv01.core.DescEstado
+import com.jroslar.listafacturasv01.data.model.FacturaModel
+import com.jroslar.listafacturasv01.databinding.ItemFacturasBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+
+class ListaFacturasAdapter(private val listener: OnManageFactura):
+    RecyclerView.Adapter<ListaFacturasAdapter.ViewHolder>() {
+    var listaFacturas: List<FacturaModel> = emptyList()
+
+    interface OnManageFactura {
+        fun onClickFactura(factura: FacturaModel)
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val binding = ItemFacturasBinding.bind(itemView)
+
+        fun bind(factura: FacturaModel, listener: OnManageFactura) {
+            var tipo = factura.descEstado
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val df: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                val newdf: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("es"))
+                var fecha = LocalDate.parse(factura.fecha, df).format(newdf)
+                binding.tvFacturaFecha.text = fecha.substring(0,4).uppercase() + fecha.substring(4)
+            } else binding.tvFacturaFecha.text = factura.fecha
+
+            binding.tvFacturaPrecio.text = factura.importeOrdenacion.toString().plus("€")
+            binding.tvFacturaTipo.text = tipo
+            when(tipo) {
+                DescEstado.pagada.descEstado -> binding.tvFacturaTipo.isVisible = false
+                else -> binding.tvFacturaTipo.isVisible = true
+            }
+
+            itemView.setOnClickListener { listener.onClickFactura(factura) }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflateLayout = LayoutInflater.from(parent.context)
+        return ViewHolder(inflateLayout.inflate(R.layout.item_facturas, parent, false))
+    }
+
+    override fun getItemCount(): Int {
+        return listaFacturas.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(listaFacturas.get(position), listener)
+    }
+}

@@ -1,0 +1,4 @@
+<resources>
+    <!-- Fragment Filtrar Lista -->
+    <dimen name="GlobalMarginTopFiltrarFacturas">24dp</dimen>
+</resources>

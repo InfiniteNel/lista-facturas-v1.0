@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Lista facturas V.0.1</string>
+    <!-- Fragment Filtrar Lista -->
+    <string name="filtrar_facturas_fragment_label">Filtrar facturas</string>
+    <string name="tvTitleFechaText">Con fecha de emisión</string>
+    <string name="tvFechaDesdeText">Desde:</string>
+    <string name="tvFechaHastaText">Hasta:</string>
+    <string name="tvTitleImporteText">Por un importe</string>
+    <string name="tvTitleEstadoText">Por estado</string>
+    <string name="btFechaText">dia/mes/año</string>
+
+    <!-- Fragment Lista Facturas -->
+    <string name="lista_facturas_fragment_label">Facturas</string>
+</resources>
