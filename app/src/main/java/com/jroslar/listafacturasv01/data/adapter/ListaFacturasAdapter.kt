@@ -8,9 +8,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.jroslar.listafacturasv01.R
 import com.jroslar.listafacturasv01.core.DescEstado
+import com.jroslar.listafacturasv01.core.Extensions.Companion.castStringToDate
 import com.jroslar.listafacturasv01.data.model.FacturaModel
 import com.jroslar.listafacturasv01.databinding.ItemFacturasBinding
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -28,9 +28,8 @@ class ListaFacturasAdapter(private val listener: OnManageFactura):
         fun bind(factura: FacturaModel, listener: OnManageFactura) {
             var tipo = factura.descEstado
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val df: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                 val newdf: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("es"))
-                var fecha = LocalDate.parse(factura.fecha, df).format(newdf)
+                var fecha = factura.fecha.castStringToDate().format(newdf)
                 binding.tvFacturaFecha.text = fecha.substring(0,4).uppercase() + fecha.substring(4)
             } else binding.tvFacturaFecha.text = factura.fecha
 

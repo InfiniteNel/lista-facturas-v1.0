@@ -3,7 +3,6 @@ package com.jroslar.listafacturasv01.ui.view
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
@@ -13,12 +12,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jroslar.listafacturasv01.R
 import com.jroslar.listafacturasv01.core.DescEstado
+import com.jroslar.listafacturasv01.core.Extensions.Companion.castStringToDate
 import com.jroslar.listafacturasv01.data.model.FacturasModel
 import com.jroslar.listafacturasv01.databinding.FragmentFiltrarFacturasBinding
 import com.jroslar.listafacturasv01.ui.view.ListaFacturasFragment.Companion.DATA_FILTER
 import com.jroslar.listafacturasv01.ui.view.ListaFacturasFragment.Companion.MAX_IMPORTE
 import com.jroslar.listafacturasv01.ui.viewmodel.FiltrarFacturasViewModel
 import com.jroslar.listafacturasv01.ui.viewmodel.FiltrarFacturasViewModelFactory
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.floor
 
@@ -79,9 +80,11 @@ class FiltrarFacturasFragment : Fragment() {
                 }
 
                 override fun onStartTrackingTouch(seek: SeekBar) {
+                    //
                 }
 
                 override fun onStopTrackingTouch(seek: SeekBar) {
+                    //
                 }
             })
         }
@@ -116,17 +119,20 @@ class FiltrarFacturasFragment : Fragment() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        val dpdFecha = DatePickerDialog(requireContext(), { view, year, monthOfYear, dayOfMonth ->
-            button.text = "$dayOfMonth/${monthOfYear+1}/$year"
+        val dpdFecha = DatePickerDialog(requireContext(), { _, year, monthOfYear, dayOfMonth ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val newdf: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("es"))
+                button.text = "$dayOfMonth/${monthOfYear+1}/$year".castStringToDate().format(newdf)
+            }
         }, year, month, day)
         dpdFecha.show()
     }
 
     private fun comprobarFechas() {
         var text = binding.btFechaDesde.text
-        if (text != "dia/mes/año" && text.isNotEmpty()) viewModel.filterlistByFechaDesde(text.toString())
+        if (text != null && text.isNotEmpty()) viewModel.filterlistByFechaDesde(text.toString())
         text = binding.btFechaHasta.text
-        if (text != "dia/mes/año" && text.isNotEmpty()) viewModel.filterlistByFechaHasta(text.toString())
+        if (text != null && text.isNotEmpty()) viewModel.filterlistByFechaHasta(text.toString())
     }
 
     private fun comprobarCheckBoxs() {
@@ -148,7 +154,7 @@ class FiltrarFacturasFragment : Fragment() {
             binding.sbImporte.progress = binding.sbImporte.max
         }
 
-        binding.btFechaDesde.text = getString(R.string.btFechaText)
-        binding.btFechaHasta.text = getString(R.string.btFechaText)
+        binding.btFechaDesde.text = null
+        binding.btFechaHasta.text = null
     }
 }

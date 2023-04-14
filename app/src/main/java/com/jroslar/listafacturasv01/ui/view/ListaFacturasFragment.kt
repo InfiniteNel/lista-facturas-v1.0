@@ -1,16 +1,12 @@
 package com.jroslar.listafacturasv01.ui.view
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jroslar.listafacturasv01.R
@@ -47,7 +43,8 @@ class ListaFacturasFragment : Fragment(), ListaFacturasAdapter.OnManageFactura {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.filtrarFacturas -> {
-                if (viewModel._state.value == ListaFacturasViewModel.ListaFacturasResult.DATA) {
+                if (viewModel._state.value != ListaFacturasViewModel.ListaFacturasResult.API_NO_DATA
+                    || viewModel._state.value != ListaFacturasViewModel.ListaFacturasResult.LOADING) {
                     val bundle = Bundle()
                     bundle.putFloat(MAX_IMPORTE, viewModel._maxValueImporte.value?: 0F)
                     findNavController().navigate(R.id.action_ListaFacturasFragment_to_filtrarFacturasFragment, bundle)
@@ -78,31 +75,36 @@ class ListaFacturasFragment : Fragment(), ListaFacturasAdapter.OnManageFactura {
             adapter.notifyDataSetChanged()
         })
 
-        /*viewModel._isLoading.observe(viewLifecycleOwner, Observer {
-            binding.loading.isVisible = it
-        })*/
-
         viewModel._state.observe(viewLifecycleOwner, Observer {
             when(it) {
-                ListaFacturasViewModel.ListaFacturasResult.LOADING -> binding.loading.isVisible = true
+                ListaFacturasViewModel.ListaFacturasResult.LOADING -> {
+                    binding.loading.isVisible = true
+                    binding.tvTitleNoData.isVisible = false
+                }
                 ListaFacturasViewModel.ListaFacturasResult.DATA -> {
                     binding.loading.isVisible = false
                     binding.tvTitleNoData.isVisible = false
                 }
                 ListaFacturasViewModel.ListaFacturasResult.NO_DATA -> {
-                    binding.loading.isVisible = false
-                    binding.tvTitleNoData.isVisible = true
+                    showNoData()
                 }
-                else -> {}
+                ListaFacturasViewModel.ListaFacturasResult.API_NO_DATA -> {
+                    showNoData()
+                }
             }
         })
 
         setFragmentResultListener(DATA_FILTER) { reqKey, bundle ->
             if (reqKey == DATA_FILTER) {
                 val value: FacturasModel = bundle.getParcelable(DATA_FILTER)!!
-                viewModel._data.value = value.facturas
+                viewModel.getList(value.facturas)
             }
         }
+    }
+
+    private fun showNoData() {
+        binding.loading.isVisible = false
+        binding.tvTitleNoData.isVisible = true
     }
 
     private fun intiAdapter() {

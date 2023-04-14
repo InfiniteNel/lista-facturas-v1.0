@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class ListaFacturasViewModel(val context: Context): ViewModel() {
     var _data: MutableLiveData<List<FacturaModel>> = MutableLiveData()
-    //var _isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var _state: MutableLiveData<ListaFacturasResult> = MutableLiveData()
     var _maxValueImporte: MutableLiveData<Float> = MutableLiveData()
 
@@ -27,14 +26,25 @@ class ListaFacturasViewModel(val context: Context): ViewModel() {
                 _state.postValue(ListaFacturasResult.DATA)
                 _maxValueImporte.postValue(data.sortedBy { it.importeOrdenacion }[data.size - 1].importeOrdenacion)
             } else {
-                _state.postValue(ListaFacturasResult.NO_DATA)
+                _state.postValue(ListaFacturasResult.API_NO_DATA)
                 _maxValueImporte.postValue(0F)
             }
         }
     }
 
+    fun getList(data: List<FacturaModel>) {
+        if (!data.isNullOrEmpty()) {
+            _data.postValue(data)
+            _state.postValue(ListaFacturasResult.DATA)
+        } else {
+            _data.postValue(emptyList())
+            _state.postValue(ListaFacturasResult.NO_DATA)
+        }
+    }
+
     enum class ListaFacturasResult {
         LOADING,
+        API_NO_DATA,
         NO_DATA,
         DATA
     }

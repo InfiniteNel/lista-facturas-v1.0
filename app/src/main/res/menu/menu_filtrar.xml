@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/cerrarFiltrarFacturas"
-        android:icon="@drawable/baseline_close_24"
+        android:icon="@drawable/close_icon"
         app:showAsAction="ifRoom"
         android:title="TODO" />
 </menu>

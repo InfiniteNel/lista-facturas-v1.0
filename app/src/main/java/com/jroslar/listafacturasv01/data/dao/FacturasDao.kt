@@ -1,7 +1,6 @@
 package com.jroslar.listafacturasv01.data.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.jroslar.listafacturasv01.data.model.FacturaModel

@@ -7,18 +7,42 @@
     tools:context=".ui.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+       android:id="@+id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="?attr/actionBarSize"
+       app:popupTheme="@style/Theme.ListaFacturasV01.PopupOverlay"
+       app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+   <include layout="@layout/content_main"
+       android:layout_marginTop="?attr/actionBarSize"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" />
+
+    <!--<com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        app:popupTheme="@style/Theme.ListaFacturasV01.PopupOverlay"
-        app:titleTextAppearance="@style/Toolbar.TitleText"/>
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.ListaFacturasV01.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:theme="@style/Theme.ListaFacturasV01.PopupOverlay" >
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/white"
+                    app:popupTheme="@style/Theme.ListaFacturasV01.PopupOverlay"
+                    app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
 
-    <include layout="@layout/content_main"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_main" />-->
 
     <!--<com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

@@ -11,8 +11,7 @@ data class FacturasModel(
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         TODO("facturas")
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(numFacturas)
