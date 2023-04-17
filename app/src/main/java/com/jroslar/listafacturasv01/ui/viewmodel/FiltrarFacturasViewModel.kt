@@ -27,8 +27,10 @@ class FiltrarFacturasViewModel(val context: Context): ViewModel() {
         }
     }
 
-    fun filterListByCheckBox(value: String) {
-        _state.value = _state.value?.filterNot { it.descEstado == value }
+    fun filterListByCheckBox(value: List<String>) {
+        if (!value.isNullOrEmpty()) {
+            _state.value = _state.value?.filter { value.contains(it.descEstado) }
+        }
     }
 
     fun filterListByImporte(value: Int) {

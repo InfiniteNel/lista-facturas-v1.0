@@ -11,7 +11,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jroslar.listafacturasv01.R
-import com.jroslar.listafacturasv01.core.DescEstado
+import com.jroslar.listafacturasv01.data.model.DescEstado
 import com.jroslar.listafacturasv01.core.Extensions.Companion.castStringToDate
 import com.jroslar.listafacturasv01.data.model.FacturasModel
 import com.jroslar.listafacturasv01.databinding.FragmentFiltrarFacturasBinding
@@ -130,17 +130,21 @@ class FiltrarFacturasFragment : Fragment() {
 
     private fun comprobarFechas() {
         var text = binding.btFechaDesde.text
-        if (text != null && text.isNotEmpty()) viewModel.filterlistByFechaDesde(text.toString())
+        val regex = "\\d{1,2} [A-Z a-z]{3} \\d{4}".toRegex()
+        if (text != null && regex.matches(text)) viewModel.filterlistByFechaDesde(text.toString())
         text = binding.btFechaHasta.text
-        if (text != null && text.isNotEmpty()) viewModel.filterlistByFechaHasta(text.toString())
+        if (text != null && regex.matches(text)) viewModel.filterlistByFechaHasta(text.toString())
     }
 
     private fun comprobarCheckBoxs() {
-        if (!binding.chAnuladas.isChecked) viewModel.filterListByCheckBox(DescEstado.anuladas.descEstado)
-        if (!binding.chCuotaFija.isChecked) viewModel.filterListByCheckBox(DescEstado.cuotafija.descEstado)
-        if (!binding.chPedientesDePago.isChecked) viewModel.filterListByCheckBox(DescEstado.pedientedepago.descEstado)
-        if (!binding.chPagado.isChecked) viewModel.filterListByCheckBox(DescEstado.pagada.descEstado)
-        if (!binding.chPlanDePago.isChecked) viewModel.filterListByCheckBox(DescEstado.plandepago.descEstado)
+        var checks = mutableListOf<String>()
+        if (binding.chAnuladas.isChecked) checks.add(DescEstado.anuladas.descEstado)
+        if (binding.chCuotaFija.isChecked) checks.add(DescEstado.cuotafija.descEstado)
+        if (binding.chPedientesDePago.isChecked) checks.add(DescEstado.pedientedepago.descEstado)
+        if (binding.chPagado.isChecked) checks.add(DescEstado.pagada.descEstado)
+        if (binding.chPlanDePago.isChecked) checks.add(DescEstado.plandepago.descEstado)
+
+        viewModel.filterListByCheckBox(checks)
     }
 
     private fun eliminarFiltros() {

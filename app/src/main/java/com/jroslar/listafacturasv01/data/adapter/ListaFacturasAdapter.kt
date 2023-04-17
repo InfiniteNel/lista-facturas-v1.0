@@ -1,5 +1,6 @@
 package com.jroslar.listafacturasv01.data.adapter
 
+import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.jroslar.listafacturasv01.R
-import com.jroslar.listafacturasv01.core.DescEstado
+import com.jroslar.listafacturasv01.data.model.DescEstado
 import com.jroslar.listafacturasv01.core.Extensions.Companion.castStringToDate
 import com.jroslar.listafacturasv01.data.model.FacturaModel
 import com.jroslar.listafacturasv01.databinding.ItemFacturasBinding
@@ -36,8 +37,8 @@ class ListaFacturasAdapter(private val listener: OnManageFactura):
             binding.tvFacturaPrecio.text = factura.importeOrdenacion.toString().plus("€")
             binding.tvFacturaTipo.text = tipo
             when(tipo) {
-                DescEstado.pagada.descEstado -> binding.tvFacturaTipo.isVisible = false
-                else -> binding.tvFacturaTipo.isVisible = true
+                DescEstado.pedientedepago.descEstado -> binding.tvFacturaTipo.setTextColor(Color.RED)
+                else -> binding.tvFacturaTipo.setTextColor(Color.GRAY)
             }
 
             itemView.setOnClickListener { listener.onClickFactura(factura) }

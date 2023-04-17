@@ -19,9 +19,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="elevation">0dp</item>
     </style>
 
-    <style name="Theme.ListaFacturasV01.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.ListaFacturasV01.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="Theme.ListaFacturasV01.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

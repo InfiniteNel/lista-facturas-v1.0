@@ -12,10 +12,10 @@ class Extensions {
         @RequiresApi(Build.VERSION_CODES.O)
         fun String.castStringToDate(): LocalDate {
             var date: LocalDate = LocalDate.now()
-            if ("\\d{1,2}/\\d{1,2}/\\d{4}".toRegex().containsMatchIn(this)) {
+            if ("\\d{1,2}/\\d{1,2}/\\d{4}".toRegex().matches(this)) {
                 val df: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
                 return LocalDate.parse(validateDate(this), df)
-            } else if ("\\d{1,2} [A-Z a-z]{3} \\d{4}".toRegex().containsMatchIn(this)) {
+            } else if ("\\d{1,2} [A-Z a-z]{3} \\d{4}".toRegex().matches(this)) {
                 val df: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("es"))
                 return LocalDate.parse(this, df)
             }

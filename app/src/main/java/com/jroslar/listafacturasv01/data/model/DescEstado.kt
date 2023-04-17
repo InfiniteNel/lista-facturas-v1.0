@@ -1,4 +1,4 @@
-package com.jroslar.listafacturasv01.core
+package com.jroslar.listafacturasv01.data.model
 
 enum class DescEstado(val descEstado: String) {
     pedientedepago("Pendiente de pago"),
