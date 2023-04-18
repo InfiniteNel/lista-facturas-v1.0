@@ -1,6 +1,5 @@
 package com.jroslar.listafacturasv01.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController

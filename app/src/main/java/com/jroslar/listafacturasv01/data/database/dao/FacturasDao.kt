@@ -1,4 +1,4 @@
-package com.jroslar.listafacturasv01.data.dao
+package com.jroslar.listafacturasv01.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

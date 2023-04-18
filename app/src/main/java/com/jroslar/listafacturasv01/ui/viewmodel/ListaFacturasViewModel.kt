@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.jroslar.listafacturasv01.data.model.FacturaModel
-import com.jroslar.listafacturasv01.domain.GetFacturasLocalUseCase
-import com.jroslar.listafacturasv01.domain.GetFacturasUseCase
+import com.jroslar.listafacturasv01.domain.GetFacturasFromApiUseCase
 import kotlinx.coroutines.launch
 
 class ListaFacturasViewModel(val context: Context): ViewModel() {
@@ -15,7 +14,7 @@ class ListaFacturasViewModel(val context: Context): ViewModel() {
     var _state: MutableLiveData<ListaFacturasResult> = MutableLiveData()
     var _maxValueImporte: MutableLiveData<Float> = MutableLiveData()
 
-    private val getFacturasUseCase = GetFacturasUseCase()
+    private val getFacturasUseCase = GetFacturasFromApiUseCase()
 
     init {
         viewModelScope.launch {

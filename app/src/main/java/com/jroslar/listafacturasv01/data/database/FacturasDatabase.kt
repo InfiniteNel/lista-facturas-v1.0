@@ -1,10 +1,10 @@
-package com.jroslar.listafacturasv01.core
+package com.jroslar.listafacturasv01.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.jroslar.listafacturasv01.data.dao.FacturasDao
+import com.jroslar.listafacturasv01.data.database.dao.FacturasDao
 import com.jroslar.listafacturasv01.data.model.FacturaModel
 
 @Database(entities = [FacturaModel::class], version = 2, exportSchema = false)
