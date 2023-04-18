@@ -73,6 +73,9 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$room_version"
 
+    //Retromock
+    implementation "co.infinum:retromock:1.1.0"
+
     //Test
     testImplementation 'junit:junit:4.13.2'
     testImplementation "io.mockk:mockk:1.12.2"

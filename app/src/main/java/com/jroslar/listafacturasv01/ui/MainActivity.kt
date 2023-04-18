@@ -1,6 +1,8 @@
 package com.jroslar.listafacturasv01.ui
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,6 +23,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        //Quitar Titulo de la Toolbar
+        /*setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)*/
 
         val topLevelDestination: MutableSet<Int> = HashSet()
         topLevelDestination.add(R.id.ListaFacturasFragment)
