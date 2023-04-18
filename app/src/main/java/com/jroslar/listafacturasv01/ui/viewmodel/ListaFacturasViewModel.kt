@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.jroslar.listafacturasv01.data.FacturasRepository
 import com.jroslar.listafacturasv01.data.model.FacturaModel
 import com.jroslar.listafacturasv01.domain.GetFacturasFromApiUseCase
 import kotlinx.coroutines.launch
@@ -15,11 +16,12 @@ class ListaFacturasViewModel(val context: Context): ViewModel() {
     var _maxValueImporte: MutableLiveData<Float> = MutableLiveData()
 
     private val getFacturasUseCase = GetFacturasFromApiUseCase()
+    private val repository = FacturasRepository()
 
     init {
         viewModelScope.launch {
             _state.postValue(ListaFacturasResult.LOADING)
-            val data: List<FacturaModel> = getFacturasUseCase(context)
+            val data: List<FacturaModel> = getFacturasUseCase(context, repository)
             if (!data.isNullOrEmpty()) {
                 _data.postValue(data)
                 _state.postValue(ListaFacturasResult.DATA)

@@ -5,13 +5,13 @@ import com.jroslar.listafacturasv01.data.FacturasRepository
 import com.jroslar.listafacturasv01.data.model.FacturaModel
 
 class GetFacturasFromApiUseCase {
-    suspend operator fun invoke(context: Context): List<FacturaModel> {
-        var facturas = FacturasRepository.getAllFacturasFromApi()
+    suspend operator fun invoke(context: Context, repository: FacturasRepository): List<FacturaModel> {
+        val facturas = repository.getAllFacturasFromApi()
 
         return if (facturas.isNotEmpty()) {
-            FacturasRepository.clearFacturas(context)
-            FacturasRepository.insertFacturas(context, facturas)
+            repository.clearFacturas(context)
+            repository.insertFacturas(context, facturas)
             facturas
-        } else FacturasRepository.getAllFacturasLocal(context)
+        } else repository.getAllFacturasLocal(context)
     }
 }

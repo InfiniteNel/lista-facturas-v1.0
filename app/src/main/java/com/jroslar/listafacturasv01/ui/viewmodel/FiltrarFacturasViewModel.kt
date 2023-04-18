@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.jroslar.listafacturasv01.core.Extensions.Companion.castStringToDate
+import com.jroslar.listafacturasv01.data.FacturasRepository
 import com.jroslar.listafacturasv01.data.model.FacturaModel
 import com.jroslar.listafacturasv01.domain.GetFacturasLocalUseCase
 import kotlinx.coroutines.launch
@@ -15,10 +16,11 @@ class FiltrarFacturasViewModel(val context: Context): ViewModel() {
     var _state: MutableLiveData<List<FacturaModel>> = MutableLiveData()
 
     private val getFacturasLocalUseCase = GetFacturasLocalUseCase()
+    private val repository = FacturasRepository()
 
     fun getList() {
         viewModelScope.launch {
-            val data: List<FacturaModel> = getFacturasLocalUseCase(context)
+            val data: List<FacturaModel> = getFacturasLocalUseCase(context, repository)
             if (!data.isNullOrEmpty()) {
                 _state.value = data
             } else {

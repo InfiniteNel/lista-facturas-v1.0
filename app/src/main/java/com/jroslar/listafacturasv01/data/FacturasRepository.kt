@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-object FacturasRepository {
+class FacturasRepository {
     val facturasService = FacturasService()
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 
