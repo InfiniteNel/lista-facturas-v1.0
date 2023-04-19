@@ -2,6 +2,7 @@ package com.jroslar.listafacturasv01.ui.view
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
@@ -93,6 +94,13 @@ class ListaFacturasFragment : Fragment(), ListaFacturasAdapter.OnManageFactura {
                 }
             }
         })
+
+        binding.tvTitleFactura.setOnLongClickListener {
+            viewModel.loadingData()
+            viewModel._serverOn.postValue(!viewModel._serverOn.value!!)
+            Toast.makeText(requireContext(), if (viewModel._serverOn.value == true) "Retrofit" else "Retromock", Toast.LENGTH_SHORT).show()
+            true
+        }
 
         setFragmentResultListener(DATA_FILTER) { reqKey, bundle ->
             if (reqKey == DATA_FILTER) {

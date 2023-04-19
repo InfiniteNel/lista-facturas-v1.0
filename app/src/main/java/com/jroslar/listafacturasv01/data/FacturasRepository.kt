@@ -12,9 +12,9 @@ class FacturasRepository {
     val facturasService = FacturasService()
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
 
-    suspend fun getAllFacturasFromApi(): List<FacturaModel> {
+    suspend fun getAllFacturasFromApi(severOn: Boolean): List<FacturaModel> {
         return withContext(dispatcherIO) {
-            val result = facturasService.getFacturas()
+            val result = facturasService.getFacturas(severOn)
 
             result.facturas
         }

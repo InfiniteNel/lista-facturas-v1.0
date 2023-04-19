@@ -38,10 +38,10 @@ class GetFacturasFromApiUseCaseTest {
     @Test
     fun `when the api doesnt return anything then get database data`() = runBlocking {
         //Give
-        coEvery { facturasRepository.getAllFacturasFromApi() } returns emptyList()
+        coEvery { facturasRepository.getAllFacturasFromApi(true) } returns emptyList()
 
         //When
-        getFacturasFromApiUseCase(context, facturasRepository)
+        getFacturasFromApiUseCase(context, facturasRepository, true)
 
         //Then
         coVerify(exactly = 1) { facturasRepository.getAllFacturasLocal(context) }
@@ -50,10 +50,10 @@ class GetFacturasFromApiUseCaseTest {
     fun `when the api return something then get api data`() = runBlocking {
         //Give
         val myList = listOf(FacturaModel(0, DescEstado.pedientedepago.descEstado, 30.3F, "20/12/2018"))
-        coEvery { facturasRepository.getAllFacturasFromApi() } returns myList
+        coEvery { facturasRepository.getAllFacturasFromApi(true) } returns myList
 
         //When
-        val response = getFacturasFromApiUseCase(context, facturasRepository)
+        val response = getFacturasFromApiUseCase(context, facturasRepository, true)
 
         //Then
         coVerify(exactly = 1) { facturasRepository.clearFacturas(context) }
