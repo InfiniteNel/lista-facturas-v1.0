@@ -41,13 +41,13 @@ class FiltrarFacturasViewModel(val context: Context): ViewModel() {
 
     fun filterlistByFechaDesde(value: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            _state.value = _state.value?.filter { it.fecha.castStringToDate().isAfter(value.castStringToDate())}
+            _state.value = _state.value?.filter { value.castStringToDate().isBefore(it.fecha.castStringToDate())}
         }
     }
 
     fun filterlistByFechaHasta(value: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            _state.value = _state.value?.filter { it.fecha.castStringToDate().isBefore(value.castStringToDate())}
+            _state.value = _state.value?.filter { value.castStringToDate().isAfter(it.fecha.castStringToDate())}
         }
     }
 }
