@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         //Quitar Titulo de la Toolbar
-        /*setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)*/
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val topLevelDestination: MutableSet<Int> = HashSet()
         topLevelDestination.add(R.id.ListaFacturasFragment)

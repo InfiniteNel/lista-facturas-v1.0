@@ -14,7 +14,7 @@ class FacturasRepository {
 
     suspend fun getAllFacturasFromApi(): List<FacturaModel> {
         return withContext(dispatcherIO) {
-            val result = facturasService.getFaturas()
+            val result = facturasService.getFacturas()
 
             result.facturas
         }

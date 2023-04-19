@@ -8,7 +8,7 @@ class FacturasService {
     private val retrofit = RetrofitFacturas.getRetrofit()
     private val retromock = RetrofitFacturas.getRetromock()
 
-    suspend fun getFaturas(): FacturasModel {
+    suspend fun getFacturas(): FacturasModel {
         return if (serverOn) {
             val response = retrofit.create(FacturasApiClient::class.java).getAllFacturas()
             response.body()?: FacturasModel(0, emptyList())

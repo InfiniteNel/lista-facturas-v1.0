@@ -1,4 +1,4 @@
 <resources>
     <!-- Fragment Filtrar Lista -->
-    <dimen name="GlobalMarginTopFiltrarFacturas">24dp</dimen>
+    <dimen name="GlobalMarginTopFiltrarFacturas">28dp</dimen>
 </resources>
